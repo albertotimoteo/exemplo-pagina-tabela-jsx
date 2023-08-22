@@ -1,19 +1,25 @@
+import { useState } from "react"
 import "./App.css"
-import Button from "./components/Button"
 
 function App() {
+  const [nome, setNome] = useState("")
+  const [endereco, setEndereco] = useState({
+    logradouro: "",
+    numero: 0,
+    bairro: "",
+  })
+
   return (
-    <>
-      <Button variant="text" onClick={() => {}}>
-        Botão text
-      </Button>
-      <Button variant="outlined" onClick={() => {}}>
-        Botão outlined
-      </Button>
-      <Button variant="contained" onClick={() => {}}>
-        Botão contained
-      </Button>
-    </>
+    <form>
+      <input value={nome} onChange={(event) => setNome(event.target.value)} />
+      <input
+        value={endereco.logradouro}
+        onChange={(event) =>
+          setEndereco({ ...endereco, logradouro: event.target.value })
+        }
+      />
+      <p>{nome}</p>
+    </form>
   )
 }
 
