@@ -1,11 +1,13 @@
-import CharacterTable from "./components/CharacterTable"
+import Counter from "./components/Counter"
 
 function App() {
   return (
     <>
-      <CharacterTable />
+      <Counter initialValue={0} />
     </>
   )
 }
+
+// Counter({initialValue: 0})
 
 export default App

@@ -9,6 +9,9 @@ function FunctionComponent() {
   // callback do primeiro parâmetro também irá rodar, novamente.
   useEffect(() => {
     console.log("Componente atualizou")
+    const newFrase = `Hello ${Math.random()}`
+    console.log(newFrase)
+    // setFrase(newFrase) // Isto vai provocar um loop infinito
   }, [frase])
 
   useEffect(() => {

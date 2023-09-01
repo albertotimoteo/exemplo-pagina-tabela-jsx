@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 type Character = {
   id: number
@@ -13,38 +13,40 @@ const CharacterTable = () => {
   const [sort, setSort] = useState<"ASC" | "DESC">("ASC")
   const [search, setSearch] = useState("")
 
-  const sortCharacters = (charactersToSort: Character[]) => {
-    return charactersToSort.sort((first, second) => {
-      if (first.name > second.name) {
-        return sort === "ASC" ? 1 : -1
-      }
-      if (first.name < second.name) {
-        return sort === "ASC" ? -1 : 1
-      }
-      return 0
-    })
-  }
-
-  const fetchData = async () => {
-    const apiCharacters = await (
-      await fetch(`https://rickandmortyapi.com/api/character?name=${search}`)
-    ).json()
-    setCharacters(
-      sortCharacters(
-        apiCharacters.results.map((apiCharacter: any) => ({
-          id: apiCharacter.id,
-          name: apiCharacter.name,
-          status: apiCharacter.status,
-          species: apiCharacter.species,
-          gender: apiCharacter.gender,
-        }))
-      )
-    )
-  }
+  const sortCharacters = useCallback(
+    (charactersToSort: Character[]) => {
+      return charactersToSort.sort((first, second) => {
+        if (first.name > second.name) {
+          return sort === "ASC" ? 1 : -1
+        }
+        if (first.name < second.name) {
+          return sort === "ASC" ? -1 : 1
+        }
+        return 0
+      })
+    },
+    [sort]
+  )
 
   useEffect(() => {
+    const fetchData = async () => {
+      const apiCharacters = await (
+        await fetch(`https://rickandmortyapi.com/api/character?name=${search}`)
+      ).json()
+      setCharacters(
+        sortCharacters(
+          apiCharacters.results.map((apiCharacter: any) => ({
+            id: apiCharacter.id,
+            name: apiCharacter.name,
+            status: apiCharacter.status,
+            species: apiCharacter.species,
+            gender: apiCharacter.gender,
+          }))
+        )
+      )
+    }
     fetchData()
-  }, [search])
+  }, [search, sortCharacters])
 
   useEffect(() => {
     console.log("Sort está mudando", sort)
