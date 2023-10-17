@@ -4,7 +4,7 @@ import { TableComponent } from "../components/Table"
 import See from "../assets/icons/see.png"
 import Edit from "../assets/icons/edit.png"
 import Delete from "../assets/icons/Delete.png"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 type SpecialtiesRow = {
   name: string
@@ -14,21 +14,10 @@ type SpecialtiesRow = {
 
 const Specialties = () => {
   const [specialties, setSpecialties] = useState<SpecialtiesRow[]>([])
-  const [currentTab, setCurrentTab] = useState<
-    "TODOS" | "MEDICO" | "CONTRATANTE"
-  >("MEDICO")
 
   const tableColumns = ["Nome especialidade", "Situação", "Ações"]
 
   const navigate = useNavigate()
-
-  const exemploRedirectDeCreate = () => {
-    navigate(`/planos/criar/${currentTab}`)
-
-    // Você acessa esse valor na sua página de criação a partir do
-    const params = useParams()
-    params.tipo
-  }
 
   useEffect(() => {
     const fetchSpecialties = async () => {
