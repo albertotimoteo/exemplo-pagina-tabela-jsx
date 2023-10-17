@@ -26,15 +26,3 @@ export const getAllSpecialties = async () => {
     console.log(error)
   }
 }
-
-const plan = {
-  planTitle: "Plano de teste",
-  enabled: true,
-  period: "Mensal",
-  type: "CONTRATANTE",
-  values: 100,
-}
-
-export const newPlan = (plan) => {
-  api.post("/specialties", plan)
-}
